@@ -1,0 +1,83 @@
+{% extends "marks/home.html" %}
+
+{% block content %}
+<h2>Update Marks</h2>
+
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-success" role="alert">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endif %}
+
+<!-- Search Form for Module Code -->
+<form method="get" class="mb-4">
+    <div class="mb-3">
+        <label for="module_code" class="form-label">Module Code:</label>
+        <input
+            type="text"
+            name="module_code"
+            id="module_code"
+            class="form-control"
+            placeholder="Enter module code"
+            value="{{ module_code|default:'' }}"
+        >
+    </div>
+    <button type="submit" class="btn btn-primary">View</button>
+</form>
+
+{% if records %}
+    <h3>Student Records for Module Code: {{ module_code }}</h3>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Student ID</th>
+                <th>Student Name</th>
+                <th>CW1</th>
+                <th>CW2</th>
+                <th>CW3</th>
+                <th>Total</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for record in records %}
+                <tr>
+                    <td>{{ record.student_id }}</td>
+                    <td>{{ record.student_name }}</td>
+                    <td>{{ record.cw1_marks }}</td>
+                    <td>{{ record.cw2_marks }}</td>
+                    <td>{{ record.cw3_marks }}</td>
+                    <td>{{ record.total_marks }}</td>  <!-- Display the dynamically calculated total marks -->
+                    <td>
+                        <a href="?module_code={{ module_code }}&student_id={{ record.id }}" class="btn btn-warning">Modify</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    {% if student_id %}
+        <h4>Edit Marks for Student ID: {{ student_id }}</h4>
+        <form method="post" action="">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="cw1_marks" class="form-label">Coursework 1 Marks:</label>
+                <input type="number" name="cw1_marks" class="form-control" value="{{ records.first.cw1_marks }}">
+            </div>
+            <div class="mb-3">
+                <label for="cw2_marks" class="form-label">Coursework 2 Marks:</label>
+                <input type="number" name="cw2_marks" class="form-control" value="{{ records.first.cw2_marks }}">
+            </div>
+            <div class="mb-3">
+                <label for="cw3_marks" class="form-label">Coursework 3 Marks:</label>
+                <input type="number" name="cw3_marks" class="form-control" value="{{ records.first.cw3_marks }}">
+            </div>
+            <button type="submit" class="btn btn-primary">Update Marks</button>
+        </form>
+    {% endif %}
+{% elif module_code %}
+    <p>No records found for module code "{{ module_code }}".</p>
+{% endif %}
+{% endblock %}

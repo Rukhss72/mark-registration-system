@@ -1,0 +1,49 @@
+{% extends "marks/home.html" %}
+
+{% block content %}
+<h2>View Marks</h2>
+
+<form method="get" class="mb-4">
+    <div class="mb-3">
+        <label for="module_code" class="form-label">Module Code:</label>
+        <input
+            type="text"
+            name="module_code"
+            id="module_code"
+            class="form-control"
+            placeholder="Enter module code"
+            value="{{ module_code|default:'' }}"
+        >
+    </div>
+    <button type="submit" class="btn btn-primary">View</button>
+</form>
+
+{% if records %}
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Student ID</th>
+                <th>Student Name</th>
+                <th>CW1</th>
+                <th>CW2</th>
+                <th>CW3</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for record in records %}
+                <tr>
+                    <td>{{ record.student_id }}</td>
+                    <td>{{ record.student_name }}</td>
+                    <td>{{ record.cw1_marks }}</td>
+                    <td>{{ record.cw2_marks }}</td>
+                    <td>{{ record.cw3_marks }}</td>
+                    <td>{{ record.cw1_marks|add:record.cw2_marks|add:record.cw3_marks }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% elif module_code %}
+    <p>No records found for module code "{{ module_code }}".</p>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualizations</title>
+
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            text-align: center; /* Center-align text */
+        }
+        h1, h2 {
+            margin: 10px 0;
+        }
+        img {
+            max-width: 80%; /* Make charts responsive */
+            height: auto;
+            margin: 20px 0;
+        }
+    </style>
+
+</head>
+<body>
+    <h1>Data Visualizations</h1>
+
+    {% if charts.pie_chart %}
+        <h2>Pie Chart: Marks Distribution</h2>
+        <img src="data:image/png;base64,{{ charts.pie_chart }}" alt="Pie Chart">
+    {% endif %}
+
+    {% if charts.bar_chart %}
+        <h2>Bar Chart: Average Marks by Module</h2>
+        <img src="data:image/png;base64,{{ charts.bar_chart }}" alt="Bar Chart">
+    {% endif %}
+
+    {% if charts.scatter_plot %}
+        <h2>Scatter Plot: CW1 vs CW2 Marks</h2>
+        <img src="data:image/png;base64,{{ charts.scatter_plot }}" alt="Scatter Plot">
+    {% endif %}
+</body>
+</html>

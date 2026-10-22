@@ -1,0 +1,83 @@
+{% extends "marks/home.html" %}
+
+{% block content %}
+<h2>Input Marks</h2>
+
+<!-- Display Messages -->
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-success" role="alert">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endif %}
+ 
+<form method="post" class="mt-4" autocomplete="off">
+    {% csrf_token %}
+    <div class="mb-3">
+        {{ form.module_code.label_tag }}                <!--  -->
+        {{ form.module_code }}
+        {% if form.module_code.errors %}
+            <div class="text-danger">{{ form.module_code.errors }}</div>
+        {% endif %}
+    </div>
+    <div class="mb-3">
+        {{ form.module_name.label_tag }}
+        {{ form.module_name }}
+        {% if form.module_name.errors %}
+            <div class="text-danger">{{ form.module_name.errors }}</div>
+        {% endif %}
+    </div>
+    <div class="mb-3">
+        {{ form.cw1_marks.label_tag }}
+        {{ form.cw1_marks }}
+        {% if form.cw1_marks.errors %}
+            <div class="text-danger">{{ form.cw1_marks.errors }}</div>
+        {% endif %}
+    </div>
+    <div class="mb-3">
+        {{ form.cw2_marks.label_tag }}
+        {{ form.cw2_marks }}
+        {% if form.cw2_marks.errors %}
+            <div class="text-danger">{{ form.cw2_marks.errors }}</div>
+        {% endif %}
+    </div>
+    <div class="mb-3">
+        {{ form.cw3_marks.label_tag }}
+        {{ form.cw3_marks }}
+        {% if form.cw3_marks.errors %}
+            <div class="text-danger">{{ form.cw3_marks.errors }}</div>
+        {% endif %}
+    </div>
+    <div class="mb-3">
+        {{ form.student_id.label_tag }}
+        {{ form.student_id }}
+        {% if form.student_id.errors %}
+            <div class="text-danger">{{ form.student_id.errors }}</div>
+        {% endif %}
+    </div>
+    <div class="mb-3">
+        {{ form.student_name.label_tag }}
+        {{ form.student_name }}
+        {% if form.student_name.errors %}
+            <div class="text-danger">{{ form.student_name.errors }}</div>
+        {% endif %}
+    </div>
+    <div class="mb-3">
+        {{ form.gender.label_tag }}
+        {{ form.gender }}
+        {% if form.gender.errors %}
+            <div class="text-danger">{{ form.gender.errors }}</div>
+        {% endif %}
+    </div>
+    <div class="mb-3">
+        {{ form.date_of_entry.label_tag }}
+        {{ form.date_of_entry }}
+        {% if form.date_of_entry.errors %}
+            <div class="text-danger">{{ form.date_of_entry.errors }}</div>
+        {% endif %}
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="reset" class="btn btn-secondary">Reset</button>
+</form>
+{% endblock %}
